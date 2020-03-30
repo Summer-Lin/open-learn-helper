@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         奥鹏在线作业助手
 // @namespace    https://github.com/ousui/open-learn-helper
-// @version      0.2
+// @version      0.3
 // @description  奥鹏在线答题小助手
 // @author       shuai.w
 // @match        https://learn.open.com.cn/StudentCenter/OnLineJob/*
@@ -51,19 +51,30 @@
              var equestion = encodeURIComponent(question);
 
              var outer = cont.find('.qes-title');
-             outer.append('<a ousui-query>').find('a[ousui-query]').css({
+             get_forword_tag(outer, 0, "https://www.shangxueba.com/ask/search.aspx?key="+ equestion, "上学吧");
+             get_forword_tag(outer, 1, "http://www.baidu.com/s?wd="+ equestion, "百度!");
+         });
+
+         fix_width();
+    }
+
+    function get_forword_tag(el, i, link, text) {
+        el.append('<a ousui-query-'+i+'>').find('a[ousui-query-'+i+']').css({
                  "font-weight": 900,
                  "padding": "0px 5px",
                  "color": "#efefef",
                  "cursor": "pointer",
                  "background": "#ff0000",
-                 "text-decoration": "none"
+                 "text-decoration": "none",
+                 "margin-left": "1px"
              }).attr('href', function(){
-                 return "http://www.baidu.com/s?wd="+ equestion;
-             }).attr('target', "_blank").html('BAIDU!');
+                 return link;
+             }).attr('target', "_blank").html(text);
+    }
 
-
-         });
+    function fix_width() {
+        $('.blank-title td img').css('width', 'auto');
+        $('.question-options li img').css('width', 'auto');
     }
 
     function request_monitoring() {
