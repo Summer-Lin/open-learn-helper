@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         奥鹏在线作业助手
 // @namespace    https://github.com/ousui/open-learn-helper
-// @version      0.3
+// @version      0.9.0
 // @description  奥鹏在线答题小助手
 // @author       shuai.w
 // @match        https://learn.open.com.cn/StudentCenter/OnLineJob/*
