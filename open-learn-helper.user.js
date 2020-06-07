@@ -20,21 +20,26 @@
         // 这里执行比较快，需要延迟执行
         setTimeout(crack_common, 3000);
         
-        add_btn('show', do_tags);
-        add_btn('clean', do_clean);
+        
+    }
+
+    function add_btn() {
+        $('.Opration-Btn-Box').append('<hr />');
+        add_btn('show', do_tags, '搜题');
+        add_btn('clean', do_clean, '重做');
+    }
+
+    function add_btn(tag, func, text) {
+        $('.Opration-Btn-Box').append(
+            '<button class="same-margin relative Choosed-Item" x-btn-'+tag+'>'+text+'</button>'
+        );
+
+        $('.Opration-Btn-Box button[x-btn-'+tag+']')
+            .on('click', func);
     }
 
     function do_clean() {
         $('.Choosed').click();
-    }
-
-    function add_btn(tag, func) {
-        $('.Opration-Btn-Box').append(
-            '<hr /><button class="same-margin relative Choosed-Item" x-btn-'+tag+'>最强辅助 <span id="text-title" class="absolute"></span></button>'
-        );
-
-        $('.Opration-Btn-Box button[x-'+tag+']')
-            .on('click', func);
     }
 
      function do_tags() {
