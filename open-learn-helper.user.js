@@ -29,47 +29,62 @@
     }
     
     function add_show_btn() {
-        $('.score').append('<span class="marginr30" style="color: blue;" pp>SHOW GO</span>');
-        $('.score span[pp]')
-            .css({
-            "cursor": "pointer",
-            "color": "blue"
-               })
+        $('.Opration-Btn-Box').append(
+            '<hr /><button class="same-margin relative Choosed-Item" x-pp>最强辅助 <span id="text-title" class="absolute"></span></button>'
+        );
+
+        $('.Opration-Btn-Box button[x-pp]')
             .on('click', do_tags);
     }
     
+    $('.Subject-Title').each(function(i, e){
+        console.info((i+1) + '. ' + $(e).text());
+    });
+
      function do_tags() {
-         $('.qestitle').each(function(i, e){
-             
-             var cont = $(e).parents('.question-cont');
-             if (!!cont.attr('_init')) {
-                 return;
-             }
-             cont.attr('_init', true);
-             
-             var question = $(e).text();
-             var equestion = encodeURIComponent(question);
 
-             var outer = cont.find('.qes-title');
-             get_forword_tag(outer, 0, "https://www.shangxueba.com/ask/search.aspx?key="+ equestion, "上学吧");
-             get_forword_tag(outer, 1, "http://www.baidu.com/s?wd="+ equestion, "百度!");
-         });
+        $('.Subject-Title').each(function(i, e){
+            var parent = $(e).parents('.Subject-Area');
+            
+            if (!!parent.attr('x-init')) {
+                return;
+            }
 
-         fix_width();
+            parent.attr('x-init', true);
+            
+            var question = $(e).text();
+            var equestion = encodeURIComponent(question);
+
+            var query = $('<div>').css({
+                'background': '#efefef',
+                'margin-top': '-10px'
+            });
+
+            parent.find('.Subject-Title').after(query);
+            get_forword_tag(query, 0, "https://www.shangxueba.com/ask/search.aspx?key="+ equestion, "上学吧");
+            get_forword_tag(query, 1, "http://www.baidu.com/s?wd="+ equestion, "百度!");
+            query.find('a[x-query-li]').css({
+                'color': '#03b000',
+                'margin': '3px 5px 3px 3px',
+                'padding': '0px 5px',
+                'font-weight': 800,
+                'cursor': 'pointer',
+                'font-size': 'larger',
+                'padding': '0 8px'
+            });
+        });
+
+         // fix_width();
     }
 
     function get_forword_tag(el, i, link, text) {
-        el.append('<a ousui-query-'+i+'>').find('a[ousui-query-'+i+']').css({
-                 "font-weight": 900,
-                 "padding": "0px 5px",
-                 "color": "#efefef",
-                 "cursor": "pointer",
-                 "background": "#ff0000",
-                 "text-decoration": "none",
-                 "margin-left": "1px"
-             }).attr('href', function(){
-                 return link;
-             }).attr('target', "_blank").html(text);
+       var el_a = $('<a />').attr({
+            'x-query-li': i,
+            'href': link,
+            'title': text,
+            'target': '_blank'
+        }).html(text);
+        el.append(el_a);
     }
 
     function fix_width() {
