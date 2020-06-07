@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         奥鹏在线作业助手
 // @namespace    https://github.com/ousui/open-learn-helper
-// @version      0.9.0
+// @version      0.9.1
 // @description  奥鹏在线答题小助手
 // @author       shuai.w
 // @match        https://learn.open.com.cn/StudentCenter/OnLineJob/*
@@ -14,32 +14,28 @@
     var check = setInterval(main, 250);
 
     function main() {
-        if (window.require == null || window.jQuery == null) { return; };
+        if (document.getElementsByClassName('Opration-Btn-Box').length == 0) { return; };
         clearInterval(check);
 
         // 这里执行比较快，需要延迟执行
         setTimeout(crack_common, 3000);
         
-        add_show_btn();
+        add_btn('show', do_tags);
+        add_btn('clean', do_clean);
     }
 
-    function init(common) {
-        alert(1);
-        alert(common)
+    function do_clean() {
+        $('.Choosed').click();
     }
-    
-    function add_show_btn() {
+
+    function add_btn(tag, func) {
         $('.Opration-Btn-Box').append(
-            '<hr /><button class="same-margin relative Choosed-Item" x-pp>最强辅助 <span id="text-title" class="absolute"></span></button>'
+            '<hr /><button class="same-margin relative Choosed-Item" x-btn-'+tag+'>最强辅助 <span id="text-title" class="absolute"></span></button>'
         );
 
-        $('.Opration-Btn-Box button[x-pp]')
-            .on('click', do_tags);
+        $('.Opration-Btn-Box button[x-'+tag+']')
+            .on('click', func);
     }
-    
-    $('.Subject-Title').each(function(i, e){
-        console.info((i+1) + '. ' + $(e).text());
-    });
 
      function do_tags() {
 
