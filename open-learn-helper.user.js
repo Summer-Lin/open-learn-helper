@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         奥鹏在线作业助手
 // @namespace    https://github.com/ousui/open-learn-helper
-// @version      0.9.1
+// @version      0.9.2
 // @description  奥鹏在线答题小助手
 // @author       shuai.w
 // @match        https://learn.open.com.cn/StudentCenter/OnLineJob/*
@@ -20,10 +20,10 @@
         // 这里执行比较快，需要延迟执行
         setTimeout(crack_common, 3000);
         
-        
+        add_btn_group();
     }
 
-    function add_btn() {
+    function add_btn_group() {
         $('.Opration-Btn-Box').append('<hr />');
         add_btn('show', do_tags, '搜题');
         add_btn('clean', do_clean, '重做');
@@ -31,10 +31,24 @@
 
     function add_btn(tag, func, text) {
         $('.Opration-Btn-Box').append(
-            '<button class="same-margin relative Choosed-Item" x-btn-'+tag+'>'+text+'</button>'
+            '<button class="same-margin relative" x-btn-'+tag+'>'+text+'</button>'
         );
 
         $('.Opration-Btn-Box button[x-btn-'+tag+']')
+            .css({
+                'background': '#0089ff',
+            })
+            .hover(function(){
+                $(this).css({
+                    '-webkit-box-shadow': '0 0 4px #5f5a5a',
+                    'box-shadow': '0 0 4px #5f5a5a'
+                });
+            }, function(){
+                $(this).css({
+                    '-webkit-box-shadow': '',
+                    'box-shadow': ''
+                });
+            })
             .on('click', func);
     }
 
