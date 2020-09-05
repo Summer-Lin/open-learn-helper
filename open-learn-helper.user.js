@@ -40,7 +40,7 @@
     }
 
     function add_btn(tag, func, text) {
-        var 
+        
         $('.'+btn_pcls).append(
             '<button class="same-margin relative" x-btn-'+tag+'>'+text+'</button>'
         );
