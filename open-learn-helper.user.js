@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         奥鹏在线作业助手
 // @namespace    https://github.com/ousui/open-learn-helper
-// @version      0.9.2
+// @version      0.9.3
 // @description  奥鹏在线答题小助手
 // @author       shuai.w
 // @match        https://learn.open.com.cn/StudentCenter/OnLineJob/*
@@ -13,8 +13,18 @@
     // 页面执行完执行
     var check = setInterval(main, 250);
 
+    var is_test = false;
+    var btn_pcls = 'Opration-Btn-Box';
+
     function main() {
-        if (document.getElementsByClassName('Opration-Btn-Box').length == 0) { return; };
+        if (
+            document.getElementsByClassName('Opration-Btn-Box').length == 0 ||
+            document.getElementsByClassName('resultshow').length == 0
+            ) { return; };
+        is_test = document.getElementsByClassName('resultshow').length > 0;
+        if (is_test) {
+            btn_pcls = 'right-bottom';
+        }
         clearInterval(check);
 
         // 这里执行比较快，需要延迟执行
@@ -24,17 +34,18 @@
     }
 
     function add_btn_group() {
-        $('.Opration-Btn-Box').append('<hr />');
+        $('.' + btn_pcls).append('<hr />');
         add_btn('show', do_tags, '搜题');
         add_btn('clean', do_clean, '重做');
     }
 
     function add_btn(tag, func, text) {
-        $('.Opration-Btn-Box').append(
+        var 
+        $('.'+btn_pcls).append(
             '<button class="same-margin relative" x-btn-'+tag+'>'+text+'</button>'
         );
 
-        $('.Opration-Btn-Box button[x-btn-'+tag+']')
+        $('.'+btn_pcls+' button[x-btn-'+tag+']')
             .css({
                 'background': '#0089ff',
             })
@@ -77,7 +88,7 @@
 
             parent.find('.Subject-Title').after(query);
             get_forword_tag(query, 0, "https://www.shangxueba.com/ask/search.aspx?key="+ equestion, "上学吧");
-            get_forword_tag(query, 1, "http://www.baidu.com/s?wd="+ equestion, "百度!");
+            get_forword_tag(query, 1, "https://www.baidu.com/s?wd="+ equestion, "百度!");
             query.find('a[x-query-li]').css({
                 'color': '#03b000',
                 'margin': '3px 5px 3px 3px',
