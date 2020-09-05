@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         奥鹏在线作业助手
 // @namespace    https://github.com/ousui/open-learn-helper
-// @version      0.9.3
+// @version      0.9.4
 // @description  奥鹏在线答题小助手
 // @author       shuai.w
 // @match        https://learn.open.com.cn/StudentCenter/OnLineJob/*
@@ -18,12 +18,17 @@
 
     function main() {
         if (
-            document.getElementsByClassName('Opration-Btn-Box').length == 0 ||
+            document.getElementsByClassName('Opration-Btn-Box').length == 0 &&
             document.getElementsByClassName('resultshow').length == 0
-            ) { return; };
+            ) {
+            console.info('>>> 循环检测页面作业类型......');
+            return; };
         is_test = document.getElementsByClassName('resultshow').length > 0;
         if (is_test) {
             btn_pcls = 'right-bottom';
+            console.info('>>> 作业类型: 作业考核');
+        } else {
+            console.info('>>> 作业类型: 平时作业');
         }
         clearInterval(check);
 
@@ -143,18 +148,19 @@
 
     // 破解常规限制：右键、 ctrl+c、 选中禁用
     function crack_common() {
+        console.info('>>> 解除右键限制');
         // 禁用右键
         document.oncontextmenu = function () {
             return true;
         }
-
+        console.info('>>> 解除禁用ctrl+c功能');
         //禁用ctrl+c功能
         document.onkeydown = function () {
             if (event.ctrlKey && window.event.keyCode == 67) {
                 return true;
             }
         }
-
+        console.info('>>> 解除禁用选中功能');
         //禁用选中
         $(document).unbind('selectstart');
     }
