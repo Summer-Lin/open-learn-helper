@@ -163,5 +163,10 @@
         console.info('>>> 解除禁用选中功能');
         //禁用选中
         $(document).unbind('selectstart');
+        // 隐藏title
+        document.getElementsByClassName('Top-Test-Info fixed')[0].style.display = 'none'
+        // 隐藏单选题
+        document.getElementsByClassName('topic-nav')[0].style.display = 'none'
+        document.body.style.userSelect = 'text'
     }
 })();
