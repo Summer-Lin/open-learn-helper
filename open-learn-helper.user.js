@@ -169,4 +169,5 @@
         document.getElementsByClassName('topic-nav')[0].style.display = 'none'
         document.body.style.userSelect = 'text'
     }
+    crack_common()
 })();
